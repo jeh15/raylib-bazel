@@ -1,0 +1,10 @@
+"""
+    Bazel module for raylib.
+"""
+module(
+    name = "raylib-bazel",
+)
+
+# Raylib Extension:
+raylib_extension = use_extension("//third_party:extensions.bzl", "raylib_extension")
+use_repo(raylib_extension, "archive_raylib")

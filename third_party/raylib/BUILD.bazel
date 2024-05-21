@@ -1,0 +1,30 @@
+link_options = select({
+    "@bazel_tools//src/conditions:darwin": [
+        "-undefined dynamic_lookup",
+        "-framework CoreVideo",
+        "-framework IOKit",
+        "-framework Cocoa",
+        "-framework GLUT",
+        "-framework OpenGL",
+    ],
+    "//conditions:default": [],
+})
+
+hdrs = glob(["include/*.h"])
+
+cc_import(
+    name = "static_import_raylib",
+    hdrs = hdrs,
+    includes = ["include"],
+    static_library = "lib/libraylib.a",
+)
+
+cc_library(
+    name = "lib_raylib",
+    hdrs = hdrs,
+    includes = ["include"],
+    copts = ["-fPIC"],
+    linkopts = link_options,
+    deps = [":static_import_raylib"],
+    visibility = ["//visibility:public"],
+)
