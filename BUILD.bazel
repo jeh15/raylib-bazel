@@ -1,0 +1,6 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "raylib",
+    deps = ["@archive_raylib//:lib_raylib"],
+)
